@@ -1,9 +1,4 @@
-const rootCustoms = [
-    "--color-primary-600",
-    "--color-primary-400",
-    "--color-primary-200"
-];
-
+import { rootCustoms } from "./data.js"
 const newStyle = document.createElement('style');
 
 newStyle.innerHTML = `
