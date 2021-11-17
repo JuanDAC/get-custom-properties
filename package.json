@@ -1,0 +1,26 @@
+{
+  "name": "get-custom-properties",
+  "version": "1.0.0",
+  "description": "Get custom properties from selector",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JuanDAC/get-custom-properties.git"
+  },
+  "keywords": [
+    "custom-properties",
+    "javascript",
+    "css"
+  ],
+  "author": "JuanDAC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JuanDAC/get-custom-properties/issues"
+  },
+  "homepage": "https://github.com/JuanDAC/get-custom-properties#readme",
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}
