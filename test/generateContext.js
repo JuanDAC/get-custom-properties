@@ -1,9 +1,18 @@
-import { rootCustoms } from "./data.js"
+import { rootCustoms, elementsWithCustoms } from "./data.js"
 const newStyle = document.createElement('style');
 
 newStyle.innerHTML = `
 :root {
-    ${rootCustoms.map((custom) => `${custom}: red;`).join('\n')}
+    ${Object.entries(rootCustoms).map(([custom, value]) => `${custom}: ${value};`).join('\n')}
 }
+
+    ${elementsWithCustoms.map(({element, id, style}) => {
+        const newElement = document.createElement(element);
+        newElement.setAttribute('id', id);
+        document.querySelector('#test')?.appendChild(newElement);
+         return `#${id} {
+            ${Object.entries(style).map(([custom, value]) => `${custom}: ${value};`).join('\n')}
+         }`;
+    }).join('\n')}
 `;
 document.head.appendChild(newStyle);
