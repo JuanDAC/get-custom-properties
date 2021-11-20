@@ -127,13 +127,20 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/JuanDAC/power-styles/tags).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/JuanDAC/get-custom-properties/tags).
 
 ## Authors
 
-- **JuanDAC** - [JuanDAC](https://github.com/JuanDAC)
+<details  style="user-select: none;">
+	<summary>
+		<strong style="user-select: none;cursor: pointer;">Juan David Avila</strong> - <a href="https://github.com/JuanDAC" target="_blank">JuanDAC</a>
+	</summary>
+	<img align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=JuanDAC&layout=compact&theme=vue&langs_count=6" alt="adri-er github stats"/>
+</details>
 
-See also the list of [contributors](https://github.com/JuanDAC/power-styles/contributors) who participated in this project.
+<br/>
+
+See also the list of [contributors](https://github.com/JuanDAC/get-custom-properties/contributors) who participated in this project.
 
 ## License
 
