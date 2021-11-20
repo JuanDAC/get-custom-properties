@@ -1,29 +1,9 @@
-const navigateProperties = (properties) => {
-    const { value, done } = properties.next();
-    if (done) {
-        return [];
-    }
-
-    const { ['2']: name, ['3']: data, } = value;
-    if (name && data) {
-        const propertyRule = { name, inherits: false };
-        const syntaxRaw = data.match(/syntax\s*:\s*"(.+)";/m)
-        if (syntaxRaw) {
-            const { ['1']: syntax } = syntaxRaw;
-            propertyRule['syntax'] = syntax;
-        }
-        const initialValueRaw = data.match(/initial-value\s*:\s*(.+);/m)
-        if (initialValueRaw) {
-            const { ['1']: initialValue } = initialValueRaw;
-            propertyRule['initialValue'] = initialValue;
-        }
-        return [propertyRule].concat(navigateProperties(properties));
-    }
-    return navigateProperties(properties)
-}
-
 
 export const extensionOnCSSStyleSheet = () => {
+
+    /**
+     *  isSameDomain:: void → bool
+     */
     Object.defineProperty(CSSStyleSheet.prototype, 'isSameDomain', {
         get: function () {
             if (!this.href) {
@@ -34,6 +14,9 @@ export const extensionOnCSSStyleSheet = () => {
         }
     });
 
+    /**
+     *  getCustomPropsFrom:: string → bool
+     */
     CSSStyleSheet.prototype.getCustomPropsFrom = function (selector) {
         return [...this.cssRules]
             .filter((rule) => rule.isStyle)
@@ -41,42 +24,50 @@ export const extensionOnCSSStyleSheet = () => {
             .reduce((props, rule) => props.concat(rule.customProps), []);
     };
 
-    Object.defineProperty(CSSStyleSheet.prototype, "customPropertiesRegisted", {
-        get: async function () {
-            const { cssRules, href } = this;
-            if (!!CSSPropertyRule) {
-                return [...cssRules]
-                    .filter((rule) => rule.isPropertyRule)
-            }
-            try {
-                const response = await fetch(href)
-                const data = response.text();
-                const properties = data.matchAll(/(@property)\s*(--[\w-]+)\s*({[\s\S][^}]*})/mig)
-                return navigateProperties(properties);
-            } catch {
-                return [];
-            }
+    /**
+     *  customPropertiesRegisted:: void → bool
+     */
+    CSSStyleSheet.prototype.customPropertiesRegisted = function () {
+        const { cssRules } = this;
+
+        if (!CSSPropertyRule) {
+            throw Error("CSSPropertyRule don't exits");
         }
-    });
+
+        return [...cssRules].filter((rule) => rule.isPropertyRule)
+    };
+
 
 }
 
 export const extensionOnCSSStyleRule = () => {
+    /**
+     *  isStyle:: void → bool
+     */
     Object.defineProperty(CSSStyleRule.prototype, 'isStyle', {
         get: function () { return this.type === 1 }
     });
 
-
+    /**
+     *  isPropertyRule:: void → bool
+     */
     Object.defineProperty(CSSStyleRule.prototype, 'isPropertyRule', {
         get: function () { return this.type === 0 }
     });
 
+    /**
+     *  customProps:: void → [string]
+     */
     Object.defineProperty(CSSStyleRule.prototype, 'customProps', {
         get: function () {
             return [...this.style]
                 .filter((propName) => propName.trim().startsWith("--"));
         }
     });
+
+    /**
+     *  fromSelector:: string → bool
+     */
     CSSStyleRule.prototype.fromSelector = function (selector) {
         return this.selectorText.endsWith(selector);
     };

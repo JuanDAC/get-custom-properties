@@ -1,15 +1,13 @@
-/*var exports = exports || {};
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-})
-*/
-import {extensionOnCSSStyleRule, extensionOnCSSStyleSheet} from "./src/extension";
+import { extensionOnCSSStyleRule, extensionOnCSSStyleSheet } from "./src/extension.js";
+import { customPropertiesRegistedFromLabel } from "./src/registered.js";
 
 extensionOnCSSStyleRule();
 extensionOnCSSStyleSheet();
 
-const getCSSCustomPropFrom = (selector) =>
+/** 
+ * getCustomProperties:: string → [string]
+ */
+export const getCustomProperties = (selector) =>
     [...document.styleSheets]
         .filter(styleSheets => styleSheets.isSameDomain)
         .reduce(
@@ -17,17 +15,7 @@ const getCSSCustomPropFrom = (selector) =>
                 finalArr.concat(sheet.getCustomPropsFrom(selector)), []
         );
 
-
-const getCSSCustomPropRegisted = () =>
-    [...document.styleSheets]
-        .filter(styleSheets => styleSheets.isSameDomain)
-        .reduce(
-            (finalArr, sheet) =>
-                finalArr.concat(sheet.customPropertiesRegisted), []
-        );
-
-
-
-
-/*exports.default = getCSSCustomPropFrom;*/
-export default getCSSCustomPropFrom;
+/**
+ * getCustomPropertiesRegisted:: void → [ {name: string, inherits: false, initialValue: string} ]
+ */
+export const getCustomPropertiesRegisted = customPropertiesRegistedFromLabel;
