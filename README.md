@@ -1,7 +1,7 @@
 [![npm version](https://badge.fury.io/js/angular2-expandable-list.svg)](https://badge.fury.io/js/angular2-expandable-list)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-# Get Custom Properties 
+# Get Custom Properties
 
 > The library get custom properties from selector that you defined in your styles
 
@@ -20,7 +20,7 @@
 
 ## Getting Started
 
-Bring the custom properties defined by the selectors in the css styles.
+Bring the custom properties defined by the selectors in the css styles or properties that you defined in the styles element inside the html document.
 
 ## Installation
 
@@ -40,21 +40,78 @@ $ yarn add get-custom-properties
 
 ## Usage
 
-Supported options and result fields for the `useBasic` hook are listed below.
+### from rule
 
-### useBasic
-
-`property from props`
-
-| Property | Type | Default value | 
-| --- | --- | --- |
-| FontSize | String | "4em" |
-
-if you what style from props
+custom properties from selector rule
 
 Example:
 
+`in CSS file`
+
+```css
+:root {
+  --color-primary-600: #a33c3b;
+  --color-primary-400: #f0706e;
+  --color-primary-200: #ff918f;
+  --custom-without-value: ;
+}
+```
+
+`in JS file`
+
 ```mjs
+import { getCustomProperties } from "get-custom-properties";
+
+console.log(getCustomProperties(":root"));
+// ['--color-primary-600', '--color-primary-400', '--color-primary-200', '--custom-without-value']
+```
+
+### from properties registered
+
+custom properties from registered in `<style>` label
+
+Example:
+
+`in HTML file`
+
+```html
+<style id="customs-registers">
+  @property --my-color {
+    syntax: <color>;
+    inherits: false;
+    initialvalue: #c0ffee;
+  }
+
+  @property --my-othe-color {
+    syntax: <color>;
+    inherits: false;
+    initialvalue: #570705;
+  }
+</style>
+```
+
+`in JS file`
+
+```mjs
+import { getCustomPropertiesRegisted } from "get-custom-properties";
+
+console.log(getCustomPropertiesRegisted("#customs-registers"));
+/* 
+  [
+    {
+      name: "--my-color",
+      syntax: "<color>",
+      initialValue: "#c0ffee",
+      inherits: false
+    },  
+    {
+      name: "--my-other-color",
+      syntax: "<color>",
+      initialValue: "#570705",
+      inherits: false
+    },  
+  ] 
+  */
 ```
 
 ## Contributing
@@ -74,7 +131,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **JuanDAC** - *Initial work* - [JuanDAC](https://github.com/JuanDAC)
+- **JuanDAC** - [JuanDAC](https://github.com/JuanDAC)
 
 See also the list of [contributors](https://github.com/JuanDAC/power-styles/contributors) who participated in this project.
 
