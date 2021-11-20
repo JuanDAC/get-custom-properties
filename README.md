@@ -12,7 +12,6 @@
   - [Getting Started](#getting-started)
   - [Installation](#installation)
   - [Usage](#usage)
-    - [useBasic](#usebasic)
   - [Contributing](#contributing)
   - [Versioning](#versioning)
   - [Authors](#authors)
